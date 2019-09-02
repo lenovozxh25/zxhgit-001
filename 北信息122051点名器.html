@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>1603点名器</title>
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+        body{
+
+        }
+        .bbg{
+          position: absolute;
+          top: 0;
+          left:0;
+          z-index:-1000;
+          width: 100%;
+          height: 100%;
+          filter: blur(1px);
+          background-image: url(img/1.jpg);
+          background-repeat: no-repeat;
+          background-size : 100% 100%;
+        }
+        .box{
+            width: 1000px;
+            height: 240px;
+            /*background-color: aqua;*/
+            margin: 0 auto;
+            margin-top:70px;
+            clear: both;
+        }
+        #btn{
+            width: 100px;
+            height: 30px;
+            position: fixed;
+            bottom: 50px;
+            left: 600px;
+            border: 0;
+            outline: none;
+            background-color: aqua;
+            border-radius: 20%;
+        }
+        .name{
+            width: 100px;
+            height: 30px;
+            float: left;
+            background-color: antiquewhite;
+            margin-left: 10px;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 30%;
+        }
+        #span{
+            float: right;
+            position: relative;
+            top: 30px;
+            right: 135px;
+            color:#000;
+        }
+        h1{
+            text-align: center;
+            margin-top: 20px;
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+  <div class="bbg">
+
+  </div>
+    <h1>同学们，Are you ready?</h1>
+    <span id="span"></span>
+    <div class="box" id="box"></div>
+    <input type="button" id="btn" value="GO"/>
+    <script>
+//        获取id函数
+        function my$(id){
+            return document.getElementById(id)
+        };
+//        模拟后台数据
+        var arr = [
+        '张春雨',
+        '员河河',
+        '贾志成',
+        '彭哲',
+        '王彭',
+        '苏宁',
+        '刘金宇',
+        '吕泽林',
+        '李梦凡',
+        '田硕',
+        '梁岩',
+        '于忠浩',
+        '唐梓誉',
+        '李星哲',
+        '张润武',
+        '徐京',
+        '田佳俊',
+        '李文鹏',
+        '李阔',
+        '石磊',
+        '赵猛',
+        '纪跃涛',
+        '王龙祎',
+        '付豪',
+        '杨立国',
+        '钟磊',
+        '张亚玲',
+        '史蒙超',
+        '张景尧',
+        '温寅凯',
+        '王准男',
+        '程锐',
+        '张倩男',
+        '颜爽',
+        '陈永莉',
+        '夏晓宇'
+      ];
+
+
+
+
+
+
+//        动态创建层
+        for(var i =0;i<arr.length;i++){
+            var div = document.createElement("div");
+            div.innerText=arr[i];
+            div.className="name";
+            my$("box").appendChild(div);
+        };
+//        点名
+        my$("btn").onclick=function(){
+            var peoples= arr.length;
+//            监视按钮的状态
+            if(this.value==="GO"){
+//                定时针
+                  timeId=setInterval(function () {
+//                      清空所有层的颜色
+                    for(var i =0;i<arr.length;i++){
+                        my$("box").children[i].style.background=""
+                    };
+//                      留下当前层的颜色
+                    var random = parseInt(Math.random()*peoples);
+                    my$("box").children[random].style.background="red";
+                },10);
+                this.value="STOP";
+            }else{
+//                清除计时器
+                clearInterval(timeId);
+                this.value="GO";
+            };
+        };
+
+//        获取时间的函数
+        getTime();
+        setInterval(getTime,1000)
+        function getTime(){
+            var day = new Date();
+            var year = day.getFullYear();//年
+            var month = day.getMonth()+1;//月
+            var dat = day.getDate();//日
+            var hour = day.getHours();//小时
+            var minitue = day.getMinutes();//分钟
+            var second = day.getSeconds();//秒
+            month=month<10?"0"+month:month;
+            dat=dat<10?"0"+dat:dat;
+            hour=hour<10?"0"+hour:hour;
+            minitue=minitue<10?"0"+minitue:minitue;
+            second=second<10?"0"+second:second;
+            my$("span").innerText=year+"-"+month+"-"+dat+" "+hour+":"+minitue+":"+second
+        }
+    </script>
+</body>
+</html>
